@@ -1,0 +1,127 @@
+@use '../abstracts/variables' as v;
+@use '../abstracts/mixins' as m;
+
+.day {
+  background: v.$color-dark-2;
+
+  &__switch {
+    position: relative;
+    display: inline-grid;
+    grid-template-columns: 1fr 1fr;
+    max-width: 100%;
+    padding: v.$space-3xs;
+    margin-bottom: v.$space-xl;
+    border: v.$border-thin solid v.$color-line;
+    border-radius: v.$radius-pill;
+  }
+
+  &__option {
+    @include m.reset-button;
+    @include m.focus-ring;
+    position: relative;
+    z-index: v.$z-base;
+    padding: v.$space-2xs v.$space-sm;
+    border-radius: v.$radius-pill;
+    font-size: v.$fs-sm;
+    font-weight: v.$weight-medium;
+    color: v.$color-ivory-dim;
+    transition: color v.$duration-base;
+
+    &.is-active {
+      color: v.$color-dark;
+    }
+  }
+
+  &__thumb {
+    position: absolute;
+    top: v.$space-3xs;
+    bottom: v.$space-3xs;
+    left: v.$space-3xs;
+    width: calc(50% - #{v.$space-3xs});
+    border-radius: v.$radius-pill;
+    background: v.$color-ivory-dim;
+    transition: transform v.$duration-base v.$ease-out, background v.$duration-base;
+  }
+
+  &__switch[data-mode='sistema'] &__thumb {
+    transform: translateX(100%);
+    background: v.$color-gold;
+  }
+
+  &__timeline {
+    display: grid;
+    border-top: v.$border-thin solid v.$color-line-soft;
+  }
+
+  &__row {
+    display: grid;
+    grid-template-columns: v.$hour-col 1fr;
+    gap: v.$space-sm;
+    padding-block: v.$space-md;
+    border-bottom: v.$border-thin solid v.$color-line-soft;
+
+    @include m.above-md {
+      grid-template-columns: v.$hour-col-lg 1fr;
+      gap: v.$space-lg;
+    }
+  }
+
+  &__hour {
+    font-family: v.$font-display;
+    font-size: v.$fs-xl;
+    font-weight: v.$weight-light;
+    line-height: v.$lh-tight;
+    font-variant-numeric: tabular-nums;
+    color: v.$color-ivory-dim;
+    transition: color v.$duration-base;
+  }
+
+  &__body {
+    display: grid;
+    align-items: center;
+  }
+
+  &__text {
+    grid-area: 1 / 1;
+    max-width: v.$measure;
+    font-size: v.$fs-md;
+    transition: opacity v.$duration-base, transform v.$duration-base v.$ease-out;
+  }
+
+  &__text--hoy {
+    color: v.$color-ivory;
+  }
+
+  &__text--sistema {
+    color: v.$color-ivory;
+    opacity: v.$opacity-hidden;
+    transform: translateY(v.$space-2xs);
+    visibility: hidden;
+  }
+
+  &__timeline[data-mode='sistema'] &__text--hoy {
+    opacity: v.$opacity-hidden;
+    transform: translateY(-(v.$space-2xs));
+    visibility: hidden;
+  }
+
+  &__timeline[data-mode='sistema'] &__text--sistema {
+    opacity: v.$opacity-full;
+    transform: none;
+    visibility: visible;
+  }
+
+  &__timeline[data-mode='sistema'] &__hour {
+    color: v.$color-gold;
+  }
+
+  &__closing {
+    max-width: v.$measure-wide;
+    margin-top: v.$space-xl;
+    font-family: v.$font-display;
+    font-size: v.$fs-xl;
+    font-style: italic;
+    line-height: v.$lh-snug;
+    color: v.$color-ivory;
+  }
+}

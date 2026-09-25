@@ -1,0 +1,50 @@
+@use '../abstracts/variables' as v;
+@use '../abstracts/mixins' as m;
+
+:root {
+  color-scheme: dark;
+  background: v.$color-dark;
+}
+
+html {
+  scroll-behavior: smooth;
+  scroll-padding-top: v.$topbar-height + v.$space-md;
+
+  @include m.reduced-motion {
+    scroll-behavior: auto;
+  }
+}
+
+body {
+  background: v.$color-dark;
+  color: v.$color-ivory;
+  font-family: v.$font-body;
+  font-size: v.$fs-base;
+  font-weight: v.$weight-light;
+  line-height: v.$lh-base;
+  -webkit-font-smoothing: antialiased;
+  text-rendering: optimizeLegibility;
+}
+
+strong {
+  font-weight: v.$weight-medium;
+  color: v.$color-ivory;
+}
+
+em {
+  font-style: italic;
+  color: v.$color-gold;
+}
+
+::selection {
+  background: v.$color-gold;
+  color: v.$color-dark;
+}
+
+.page {
+  overflow-x: clip;
+}
+
+.main {
+  padding-top: v.$topbar-height;
+}

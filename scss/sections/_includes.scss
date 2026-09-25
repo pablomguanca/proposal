@@ -1,0 +1,41 @@
+@use '../abstracts/variables' as v;
+@use '../abstracts/mixins' as m;
+
+.includes {
+  &__filters {
+    display: flex;
+    flex-wrap: wrap;
+    gap: v.$space-2xs;
+    margin-bottom: v.$space-lg;
+  }
+
+  &__grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(min(100%, v.$card-min), 1fr));
+    gap: v.$space-sm;
+  }
+}
+
+.deliverable {
+  display: grid;
+  align-content: start;
+  gap: v.$space-2xs;
+  padding: v.$space-md;
+  border-top: v.$border-thin solid v.$color-gold;
+  background: v.$color-dark-2;
+  transition: opacity v.$duration-base, transform v.$duration-base v.$ease-out;
+
+  &__pillar {
+    @include m.label;
+    color: v.$color-gold;
+  }
+
+  &__text {
+    color: v.$color-ivory;
+  }
+
+  &.is-dimmed {
+    opacity: v.$opacity-dim;
+    transform: scale(v.$scale-dimmed);
+  }
+}

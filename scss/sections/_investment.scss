@@ -1,0 +1,62 @@
+@use '../abstracts/variables' as v;
+@use '../abstracts/mixins' as m;
+
+.investment {
+  background: v.$color-dark-2;
+
+  &__grid {
+    display: grid;
+    gap: v.$space-sm;
+
+    @include m.above-md {
+      grid-template-columns: repeat(3, 1fr);
+    }
+  }
+
+  &__note {
+    margin-top: v.$space-lg;
+    font-size: v.$fs-sm;
+    color: v.$color-ivory-dim;
+  }
+}
+
+.price {
+  display: grid;
+  align-content: start;
+  gap: v.$space-xs;
+  padding: v.$space-lg;
+  border: v.$border-thin solid v.$color-line-soft;
+  border-radius: v.$radius-md;
+  background: v.$color-dark;
+
+  &--featured {
+    border-color: v.$color-gold;
+    background: v.$color-gold-wash;
+  }
+
+  &__label {
+    @include m.label;
+    color: v.$color-gold;
+  }
+
+  &__amount {
+    font-family: v.$font-display;
+    font-size: v.$fs-2xl;
+    font-weight: v.$weight-light;
+    line-height: v.$lh-tight;
+    font-variant-numeric: tabular-nums;
+    color: v.$color-ivory;
+  }
+
+  &__period {
+    font-size: v.$fs-sm;
+    color: v.$color-ivory-dim;
+  }
+
+  &__text {
+    padding-top: v.$space-sm;
+    border-top: v.$border-thin solid v.$color-line-soft;
+    font-size: v.$fs-sm;
+    color: v.$color-ivory-dim;
+  }
+}

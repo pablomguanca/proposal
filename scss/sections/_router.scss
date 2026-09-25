@@ -1,0 +1,255 @@
+@use '../abstracts/variables' as v;
+@use '../abstracts/mixins' as m;
+
+.router {
+  background: v.$glow-hero, v.$color-dark;
+
+  &__layout {
+    display: grid;
+    gap: v.$space-xl;
+
+    @include m.above-lg {
+      grid-template-columns: v.$router-form-col minmax(0, 1fr);
+      align-items: start;
+      gap: v.$space-2xl;
+    }
+  }
+
+  &__form {
+    display: grid;
+    gap: v.$space-lg;
+    padding: v.$space-md;
+    border: v.$border-thin solid v.$color-line;
+    border-radius: v.$radius-md;
+    background: v.$color-dark-2;
+  }
+
+  &__group {
+    display: grid;
+    gap: v.$space-xs;
+  }
+
+  &__legend {
+    display: flex;
+    align-items: center;
+    gap: v.$space-2xs;
+    margin-bottom: v.$space-xs;
+    font-size: v.$fs-sm;
+    font-weight: v.$weight-medium;
+    color: v.$color-ivory;
+  }
+
+  &__step {
+    display: inline-grid;
+    place-items: center;
+    width: v.$step-badge;
+    height: v.$step-badge;
+    border: v.$border-thin solid v.$color-gold;
+    border-radius: v.$radius-pill;
+    font-size: v.$fs-xs;
+    color: v.$color-gold;
+  }
+
+  &__chips {
+    display: flex;
+    flex-wrap: wrap;
+    gap: v.$space-2xs;
+  }
+
+  &__input {
+    position: absolute;
+    width: v.$border-thin;
+    height: v.$border-thin;
+    opacity: v.$opacity-hidden;
+    pointer-events: none;
+
+    &:checked + .chip {
+      background: v.$color-gold;
+      border-color: v.$color-gold;
+      color: v.$color-dark;
+    }
+
+    &:focus-visible + .chip {
+      outline: v.$border-mid solid v.$color-gold-bright;
+      outline-offset: v.$space-3xs;
+    }
+  }
+
+  &__visual {
+    display: grid;
+    gap: v.$space-md;
+  }
+
+  &__diagram {
+    overflow-x: auto;
+  }
+}
+
+.flow {
+  width: 100%;
+  min-width: v.$flow-min;
+  height: auto;
+
+  &__path {
+    fill: none;
+    stroke: v.$color-line;
+    stroke-width: v.$svg-stroke;
+    stroke-linecap: round;
+    transition: stroke v.$duration-base, stroke-width v.$duration-base, opacity v.$duration-base;
+
+    &--trunk {
+      stroke: v.$color-gold;
+      stroke-width: v.$svg-stroke-active;
+    }
+
+    &.is-active {
+      stroke: v.$color-gold;
+      stroke-width: v.$svg-stroke-active;
+      stroke-dasharray: v.$svg-dash;
+      animation: draw v.$duration-draw v.$ease-out both;
+    }
+  }
+
+  &__node {
+    fill: v.$color-gold;
+  }
+
+  &__gate {
+    fill: v.$color-dark-2;
+    stroke: v.$color-gold;
+    stroke-width: v.$svg-stroke;
+  }
+
+  &__node-label {
+    fill: v.$color-ivory-dim;
+    font-family: v.$font-body;
+    font-size: v.$fs-base;
+    text-anchor: middle;
+  }
+
+  &__dest-ring {
+    fill: v.$color-dark;
+    stroke: v.$color-line;
+    stroke-width: v.$svg-stroke;
+    transition: fill v.$duration-base, stroke v.$duration-base;
+  }
+
+  &__dest-letter {
+    fill: v.$color-ivory-dim;
+    font-family: v.$font-display;
+    font-size: v.$fs-lg;
+    font-weight: v.$weight-bold;
+    text-anchor: middle;
+    transition: fill v.$duration-base;
+  }
+
+  &__dest.is-active &__dest-ring {
+    fill: v.$color-gold;
+    stroke: v.$color-gold-bright;
+  }
+
+  &__dest.is-active &__dest-letter {
+    fill: v.$color-dark;
+  }
+
+  &__dot {
+    fill: v.$color-gold-bright;
+  }
+
+  @include m.reduced-motion {
+    &__path.is-active {
+      animation: none;
+    }
+  }
+}
+
+.routes {
+  display: grid;
+  gap: v.$space-2xs;
+
+  @include m.above-md {
+    grid-template-columns: repeat(3, 1fr);
+  }
+
+  &__item {
+    display: flex;
+    align-items: center;
+    gap: v.$space-xs;
+    padding: v.$space-xs v.$space-sm;
+    border: v.$border-thin solid v.$color-line-soft;
+    border-radius: v.$radius-md;
+    font-size: v.$fs-sm;
+    color: v.$color-ivory-dim;
+    transition: border-color v.$duration-base, color v.$duration-base;
+
+    &.is-active {
+      border-color: v.$color-gold;
+      color: v.$color-ivory;
+    }
+  }
+
+  &__letter {
+    font-family: v.$font-display;
+    font-size: v.$fs-lg;
+    font-weight: v.$weight-bold;
+    color: v.$color-gold;
+  }
+}
+
+.result {
+  display: grid;
+  gap: v.$space-sm;
+  padding: v.$space-lg;
+  border: v.$border-thin solid v.$color-gold;
+  border-radius: v.$radius-md;
+  background: v.$color-gold-wash;
+
+  &__tag {
+    @include m.label;
+    color: v.$color-gold;
+  }
+
+  &__title {
+    @include m.display;
+    font-size: v.$fs-xl;
+  }
+
+  &__text {
+    max-width: v.$measure;
+    color: v.$color-ivory;
+  }
+
+  &__steps {
+    display: grid;
+    gap: v.$space-2xs;
+    counter-reset: step;
+
+    li {
+      display: grid;
+      grid-template-columns: v.$space-lg 1fr;
+      font-size: v.$fs-sm;
+      color: v.$color-ivory-dim;
+      counter-increment: step;
+
+      &::before {
+        content: counter(step, decimal-leading-zero);
+        font-variant-numeric: tabular-nums;
+        color: v.$color-gold;
+      }
+    }
+  }
+
+  &__owner {
+    display: flex;
+    flex-wrap: wrap;
+    gap: v.$space-3xs v.$space-xs;
+    padding-top: v.$space-sm;
+    border-top: v.$border-thin solid v.$color-line;
+    font-size: v.$fs-sm;
+  }
+
+  &__owner-label {
+    @include m.label;
+    color: v.$color-ivory-dim;
+  }
+}

@@ -1,0 +1,174 @@
+@use '../abstracts/variables' as v;
+@use '../abstracts/mixins' as m;
+
+.pillars {
+  background: v.$color-dark-2;
+
+  &__layout {
+    display: grid;
+    gap: v.$space-xl;
+
+    @include m.above-lg {
+      grid-template-columns: v.$cycle-max minmax(0, 1fr);
+      align-items: start;
+      gap: v.$space-2xl;
+    }
+  }
+
+  &__cycle {
+    width: 100%;
+    max-width: v.$cycle-max;
+    margin-inline: auto;
+
+    @include m.above-lg {
+      position: sticky;
+      top: v.$topbar-height + v.$space-xl;
+    }
+  }
+}
+
+.cycle {
+  width: 100%;
+  height: auto;
+
+  &__track {
+    fill: none;
+    stroke: v.$color-line-soft;
+    stroke-width: v.$svg-stroke;
+  }
+
+  &__arc {
+    fill: none;
+    stroke: v.$color-line;
+    stroke-width: v.$svg-stroke;
+    stroke-linecap: round;
+    transition: stroke v.$duration-base, stroke-width v.$duration-base;
+
+    &.is-active {
+      stroke: v.$color-gold;
+      stroke-width: v.$svg-stroke-active;
+      stroke-dasharray: v.$svg-dash;
+      animation: draw v.$duration-draw v.$ease-out both;
+    }
+  }
+
+  &__node {
+    cursor: pointer;
+  }
+
+  &__node-ring {
+    fill: v.$color-dark;
+    stroke: v.$color-line;
+    stroke-width: v.$svg-stroke;
+    transition: fill v.$duration-base, stroke v.$duration-base;
+  }
+
+  &__node-num {
+    fill: v.$color-ivory-dim;
+    font-family: v.$font-display;
+    font-size: v.$fs-lg;
+    font-weight: v.$weight-bold;
+    text-anchor: middle;
+    transition: fill v.$duration-base;
+  }
+
+  &__node.is-active &__node-ring {
+    fill: v.$color-gold;
+    stroke: v.$color-gold-bright;
+  }
+
+  &__node.is-active &__node-num {
+    fill: v.$color-dark;
+  }
+
+  &__center-label {
+    fill: v.$color-ivory-dim;
+    font-family: v.$font-display;
+    font-size: v.$fs-lg;
+    font-style: italic;
+    text-anchor: middle;
+  }
+
+  @include m.reduced-motion {
+    &__arc.is-active {
+      animation: none;
+    }
+  }
+}
+
+.pillar {
+  display: grid;
+  gap: v.$space-md;
+
+  &__title {
+    @include m.display;
+    font-size: v.$fs-xl;
+  }
+
+  &__intro {
+    font-size: v.$fs-md;
+    color: v.$color-ivory-dim;
+  }
+
+  &__rows {
+    display: grid;
+    border-top: v.$border-thin solid v.$color-line-soft;
+  }
+
+  &__row {
+    display: grid;
+    gap: v.$space-2xs;
+    padding-block: v.$space-md;
+    border-bottom: v.$border-thin solid v.$color-line-soft;
+
+    @include m.above-md {
+      grid-template-columns: v.$hour-col-lg 1fr;
+      gap: v.$space-lg;
+    }
+
+    &--result {
+      border-bottom-color: v.$color-line;
+    }
+  }
+
+  &__label {
+    @include m.label;
+    color: v.$color-ivory-dim;
+    padding-top: v.$space-3xs;
+  }
+
+  &__row--result &__label {
+    color: v.$color-gold;
+  }
+
+  &__row--result &__text {
+    color: v.$color-ivory;
+    font-family: v.$font-display;
+    font-size: v.$fs-lg;
+    line-height: v.$lh-snug;
+  }
+
+  &__text {
+    color: v.$color-ivory-dim;
+  }
+
+  &__list {
+    display: grid;
+    gap: v.$space-2xs;
+
+    li {
+      position: relative;
+      padding-left: v.$space-md;
+
+      &::before {
+        content: '';
+        position: absolute;
+        top: v.$bullet-offset;
+        left: 0;
+        width: v.$space-xs;
+        height: v.$border-thin;
+        background: v.$color-gold;
+      }
+    }
+  }
+}

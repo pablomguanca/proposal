@@ -1,0 +1,17 @@
+@use '../abstracts/variables' as v;
+@use '../abstracts/mixins' as m;
+
+.eyebrow {
+  @include m.label;
+  display: inline-flex;
+  align-items: center;
+  gap: v.$space-xs;
+  color: v.$color-gold;
+
+  &::before {
+    content: '';
+    width: v.$space-lg;
+    height: v.$border-thin;
+    background: v.$color-gold;
+  }
+}

@@ -1,0 +1,61 @@
+@use '../abstracts/variables' as v;
+@use '../abstracts/mixins' as m;
+
+.index-panel {
+  position: fixed;
+  top: calc(#{v.$topbar-height} + #{v.$progress-height} + env(safe-area-inset-top, 0px));
+  right: v.$gutter;
+  left: v.$gutter;
+  z-index: v.$z-index-panel;
+  padding: v.$space-md;
+  background: v.$color-dark-2;
+  border: v.$border-thin solid v.$color-line;
+  border-radius: v.$radius-md;
+  box-shadow: v.$shadow-panel;
+  animation: fade-in v.$duration-base v.$ease-out both;
+
+  @include m.above-sm {
+    left: auto;
+    width: v.$index-width;
+  }
+
+  @include m.above-md {
+    right: v.$gutter-lg;
+  }
+
+  &__title {
+    @include m.label;
+    margin-bottom: v.$space-sm;
+    color: v.$color-ivory-dim;
+  }
+
+  &__list {
+    display: grid;
+    gap: v.$space-3xs;
+  }
+
+  &__link {
+    display: flex;
+    align-items: baseline;
+    gap: v.$space-xs;
+    padding: v.$space-2xs 0;
+    font-size: v.$fs-sm;
+    color: v.$color-ivory-dim;
+    transition: color v.$duration-fast;
+    @include m.focus-ring;
+
+    &:hover {
+      color: v.$color-ivory;
+    }
+
+    &.is-active {
+      color: v.$color-gold-bright;
+    }
+  }
+
+  &__num {
+    font-variant-numeric: tabular-nums;
+    font-size: v.$fs-xs;
+    color: v.$color-gold;
+  }
+}

@@ -1,0 +1,71 @@
+@use '../abstracts/variables' as v;
+@use '../abstracts/mixins' as m;
+
+.next {
+  &__steps {
+    display: grid;
+    gap: v.$space-lg;
+    margin-bottom: v.$space-2xl;
+
+    @include m.above-md {
+      grid-template-columns: repeat(3, 1fr);
+      gap: v.$space-xl;
+    }
+  }
+
+  &__step {
+    display: grid;
+    align-content: start;
+    gap: v.$space-xs;
+  }
+
+  &__num {
+    font-family: v.$font-display;
+    font-size: v.$fs-numeral;
+    font-weight: v.$weight-light;
+    line-height: v.$lh-tight;
+    color: v.$color-gold;
+  }
+
+  &__title {
+    font-family: v.$font-display;
+    font-size: v.$fs-lg;
+    font-weight: v.$weight-bold;
+  }
+
+  &__text {
+    color: v.$color-ivory-dim;
+  }
+
+  &__cta {
+    display: grid;
+    justify-items: start;
+    gap: v.$space-sm;
+    padding: v.$space-xl v.$space-lg;
+    border: v.$border-thin solid v.$color-gold;
+    border-radius: v.$radius-md;
+    background: v.$glow-hero, v.$color-dark-2;
+
+    @include m.above-md {
+      grid-template-columns: 1fr auto;
+      align-items: center;
+      padding: v.$space-xl;
+    }
+  }
+
+  &__cta-text {
+    @include m.display;
+    font-size: v.$fs-2xl;
+    font-style: italic;
+  }
+
+  &__cta-number {
+    font-size: v.$fs-sm;
+    color: v.$color-ivory-dim;
+
+    @include m.above-md {
+      grid-column: 2;
+      justify-self: center;
+    }
+  }
+}

@@ -1,0 +1,48 @@
+@use '../abstracts/variables' as v;
+@use '../abstracts/mixins' as m;
+
+.btn {
+  @include m.reset-button;
+  @include m.focus-ring;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: v.$space-2xs;
+  padding: v.$space-xs v.$space-md;
+  border: v.$border-thin solid transparent;
+  border-radius: v.$radius-sm;
+  font-size: v.$fs-sm;
+  font-weight: v.$weight-medium;
+  letter-spacing: v.$ls-wide;
+  transition: background v.$duration-fast, color v.$duration-fast, border-color v.$duration-fast, transform v.$duration-fast;
+
+  &:hover {
+    transform: translateY(v.$hover-lift);
+  }
+
+  &--primary {
+    background: v.$color-gold;
+    color: v.$color-dark;
+
+    &:hover {
+      background: v.$color-gold-bright;
+    }
+  }
+
+  &--ghost {
+    border-color: v.$color-line;
+    color: v.$color-ivory;
+
+    &:hover {
+      border-color: v.$color-gold;
+      color: v.$color-gold-bright;
+    }
+  }
+
+  &--whatsapp {
+    background: v.$color-whatsapp;
+    color: v.$color-dark;
+    padding: v.$space-sm v.$space-lg;
+    font-size: v.$fs-base;
+  }
+}

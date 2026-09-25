@@ -1,0 +1,19 @@
+@use '../abstracts/variables' as v;
+@use '../abstracts/mixins' as m;
+
+.chip {
+  display: inline-flex;
+  align-items: center;
+  padding: v.$space-2xs v.$space-sm;
+  border: v.$border-thin solid v.$color-line;
+  border-radius: v.$radius-pill;
+  font-size: v.$fs-sm;
+  color: v.$color-ivory-dim;
+  cursor: pointer;
+  transition: background v.$duration-fast, color v.$duration-fast, border-color v.$duration-fast;
+
+  &:hover {
+    border-color: v.$color-gold;
+    color: v.$color-ivory;
+  }
+}

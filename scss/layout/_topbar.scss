@@ -1,0 +1,129 @@
+@use '../abstracts/variables' as v;
+@use '../abstracts/mixins' as m;
+
+.topbar {
+  position: fixed;
+  inset: 0 0 auto;
+  z-index: v.$z-topbar;
+  padding-top: env(safe-area-inset-top, 0px);
+  background: transparent;
+  transition: background v.$duration-base, backdrop-filter v.$duration-base;
+
+  &.is-scrolled {
+    background: v.$color-overlay;
+    backdrop-filter: blur(v.$blur-topbar);
+  }
+
+  &__inner {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: v.$space-sm;
+    height: v.$topbar-height;
+    max-width: v.$container-max;
+    margin-inline: auto;
+    padding-inline: v.$gutter;
+
+    @include m.above-md {
+      padding-inline: v.$gutter-lg;
+    }
+  }
+
+  &__brand {
+    display: inline-flex;
+    align-items: baseline;
+    gap: v.$space-2xs;
+    font-family: v.$font-display;
+    font-size: v.$fs-lg;
+    @include m.focus-ring;
+  }
+
+  &__wordmark {
+    font-weight: v.$weight-bold;
+    color: v.$color-gold;
+  }
+
+  &__cross {
+    color: v.$color-ivory-dim;
+    font-weight: v.$weight-light;
+  }
+
+  &__client {
+    font-style: italic;
+    color: v.$color-ivory;
+  }
+
+  &__actions {
+    display: flex;
+    align-items: center;
+    gap: v.$space-sm;
+  }
+
+  &__current {
+    display: none;
+    @include m.label;
+    color: v.$color-ivory-dim;
+
+    @include m.above-md {
+      display: inline;
+    }
+  }
+
+  &__index-btn {
+    @include m.reset-button;
+    @include m.focus-ring;
+    display: inline-flex;
+    align-items: center;
+    gap: v.$space-2xs;
+    padding: v.$space-3xs v.$space-xs;
+    border: v.$border-thin solid v.$color-line;
+    border-radius: v.$radius-pill;
+    font-size: v.$fs-sm;
+    color: v.$color-ivory;
+    transition: border-color v.$duration-fast, color v.$duration-fast;
+
+    &:hover,
+    &.is-open {
+      border-color: v.$color-gold;
+      color: v.$color-gold-bright;
+    }
+  }
+
+  &__index-icon {
+    position: relative;
+    width: v.$hamburger-width;
+    height: v.$border-thin;
+    background: currentColor;
+
+    &::before,
+    &::after {
+      content: '';
+      position: absolute;
+      left: 0;
+      width: 100%;
+      height: v.$border-thin;
+      background: currentColor;
+    }
+
+    &::before {
+      top: -(v.$hamburger-gap);
+    }
+
+    &::after {
+      top: v.$hamburger-gap;
+    }
+  }
+
+  &__progress {
+    height: v.$progress-height;
+    background: v.$color-line-soft;
+  }
+
+  &__progress-bar {
+    display: block;
+    height: 100%;
+    background: v.$color-gold;
+    transform-origin: left center;
+    transform: scaleX(var(--progress, 0));
+  }
+}

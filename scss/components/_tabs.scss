@@ -1,0 +1,42 @@
+@use '../abstracts/variables' as v;
+@use '../abstracts/mixins' as m;
+
+.tabs {
+  display: flex;
+  gap: v.$space-3xs;
+  margin-bottom: v.$space-lg;
+  border-bottom: v.$border-thin solid v.$color-line;
+  overflow-x: auto;
+
+  &__tab {
+    @include m.reset-button;
+    @include m.focus-ring;
+    display: inline-flex;
+    align-items: baseline;
+    gap: v.$space-2xs;
+    padding: v.$space-xs v.$space-sm;
+    margin-bottom: -(v.$border-thin);
+    border-bottom: v.$border-mid solid transparent;
+    font-size: v.$fs-sm;
+    font-weight: v.$weight-medium;
+    color: v.$color-ivory-dim;
+    white-space: nowrap;
+    transition: color v.$duration-fast, border-color v.$duration-fast;
+
+    &:hover {
+      color: v.$color-ivory;
+    }
+
+    &.is-active {
+      color: v.$color-gold-bright;
+      border-color: v.$color-gold;
+    }
+  }
+
+  &__num {
+    font-family: v.$font-display;
+    font-size: v.$fs-md;
+    font-weight: v.$weight-bold;
+    color: v.$color-gold;
+  }
+}

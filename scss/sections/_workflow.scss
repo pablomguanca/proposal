@@ -1,0 +1,213 @@
+@use 'sass:math';
+@use '../abstracts/variables' as v;
+@use '../abstracts/mixins' as m;
+
+.workflow {
+  background: v.$color-dark-2;
+}
+
+.stepper {
+  position: relative;
+  display: grid;
+  gap: v.$space-lg;
+  margin-bottom: v.$space-2xl;
+
+  &__track {
+    display: none;
+
+    @include m.above-md {
+      display: block;
+      position: absolute;
+      top: v.$stepper-dot-top + math.div(v.$dot-size, 2);
+      right: math.div(100%, v.$stages * 2);
+      left: math.div(100%, v.$stages * 2);
+      height: v.$border-thin;
+      background: v.$color-line;
+    }
+  }
+
+  &__fill {
+    display: block;
+    height: 100%;
+    background: v.$color-gold;
+    transform-origin: left center;
+    transform: scaleX(0);
+    transition: transform v.$duration-slow v.$ease-out;
+  }
+
+  @for $i from 1 through v.$stages - 1 {
+    &[data-active='#{$i}'] &__fill {
+      transform: scaleX(math.div($i, v.$stages - 1));
+    }
+  }
+
+  &__steps {
+    display: grid;
+    gap: v.$space-2xs;
+
+    @include m.above-md {
+      grid-template-columns: repeat(v.$stages, 1fr);
+      gap: v.$space-sm;
+    }
+  }
+
+  &__step {
+    @include m.reset-button;
+    @include m.focus-ring;
+    position: relative;
+    display: grid;
+    grid-template-columns: v.$dot-size 1fr;
+    grid-template-areas: 'dot when' 'dot name';
+    column-gap: v.$space-sm;
+    padding: v.$space-xs v.$space-sm;
+    border: v.$border-thin solid v.$color-line-soft;
+    border-radius: v.$radius-md;
+    text-align: left;
+    transition: border-color v.$duration-base;
+
+    @include m.above-md {
+      grid-template-columns: 1fr;
+      grid-template-areas: 'dot' 'when' 'name';
+      justify-items: center;
+      row-gap: v.$space-2xs;
+      padding: v.$stepper-dot-top 0 0;
+      border: 0;
+      text-align: center;
+    }
+
+    &.is-active {
+      border-color: v.$color-gold;
+    }
+  }
+
+  &__dot {
+    grid-area: dot;
+    align-self: center;
+    width: v.$dot-size;
+    height: v.$dot-size;
+    border: v.$border-mid solid v.$color-line;
+    border-radius: v.$radius-pill;
+    background: v.$color-dark-2;
+    transition: background v.$duration-base, border-color v.$duration-base, box-shadow v.$duration-base;
+  }
+
+  &__step.is-done &__dot {
+    background: v.$color-gold;
+    border-color: v.$color-gold;
+  }
+
+  &__step.is-active &__dot {
+    background: v.$color-gold-bright;
+    border-color: v.$color-gold-bright;
+    box-shadow: v.$ring-glow;
+  }
+
+  &__when {
+    grid-area: when;
+    @include m.label;
+    color: v.$color-ivory-dim;
+  }
+
+  &__name {
+    grid-area: name;
+    font-family: v.$font-display;
+    font-size: v.$fs-lg;
+    font-weight: v.$weight-bold;
+    color: v.$color-ivory-dim;
+    transition: color v.$duration-base;
+  }
+
+  &__step.is-active &__name {
+    color: v.$color-gold-bright;
+  }
+}
+
+.stage {
+  display: grid;
+  gap: v.$space-md;
+  padding: v.$space-lg;
+  border: v.$border-thin solid v.$color-line;
+  border-radius: v.$radius-md;
+  background: v.$color-dark;
+
+  &__summary {
+    @include m.display;
+    font-size: v.$fs-xl;
+  }
+
+  &__list {
+    display: grid;
+    gap: v.$space-xs;
+
+    @include m.above-md {
+      grid-template-columns: repeat(2, 1fr);
+      column-gap: v.$space-xl;
+    }
+
+    li {
+      padding-left: v.$space-md;
+      border-left: v.$border-thin solid v.$color-gold;
+      color: v.$color-ivory-dim;
+    }
+  }
+
+  &__deliverable {
+    display: flex;
+    flex-wrap: wrap;
+    gap: v.$space-3xs v.$space-sm;
+    padding-top: v.$space-md;
+    border-top: v.$border-thin solid v.$color-line-soft;
+    color: v.$color-ivory;
+
+    span {
+      @include m.label;
+      color: v.$color-gold;
+      align-self: center;
+    }
+  }
+}
+
+.roles {
+  display: grid;
+  gap: v.$space-md;
+
+  @include m.above-md {
+    grid-template-columns: 1fr 1fr;
+    gap: v.$space-lg;
+  }
+
+  &__col {
+    display: grid;
+    align-content: start;
+    gap: v.$space-sm;
+    padding: v.$space-lg;
+    border: v.$border-thin solid v.$color-line-soft;
+    border-radius: v.$radius-md;
+
+    &--atenea {
+      border-color: v.$color-gold;
+      background: v.$color-gold-wash;
+    }
+  }
+
+  &__who {
+    @include m.label;
+    color: v.$color-gold;
+  }
+
+  &__title {
+    @include m.display;
+    font-size: v.$fs-xl;
+  }
+
+  &__list {
+    display: grid;
+    gap: v.$space-2xs;
+
+    li {
+      padding-block: v.$space-2xs;
+      border-bottom: v.$border-thin solid v.$color-line-soft;
+      color: v.$color-ivory-dim;
+    }
+  }
+}

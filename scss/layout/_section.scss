@@ -1,0 +1,26 @@
+@use '../abstracts/variables' as v;
+@use '../abstracts/mixins' as m;
+
+.section {
+  padding-block: v.$space-3xl;
+  border-top: v.$border-thin solid v.$color-line-soft;
+
+  &__head {
+    display: grid;
+    gap: v.$space-sm;
+    max-width: v.$measure-wide;
+    margin-bottom: v.$space-xl;
+  }
+
+  &__title {
+    @include m.display;
+    font-size: v.$fs-2xl;
+    color: v.$color-ivory;
+  }
+
+  &__lead {
+    max-width: v.$measure;
+    font-size: v.$fs-md;
+    color: v.$color-ivory-dim;
+  }
+}

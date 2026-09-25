@@ -1,0 +1,100 @@
+@use '../abstracts/variables' as v;
+@use '../abstracts/mixins' as m;
+
+.hero {
+  position: relative;
+  padding-block: v.$space-2xl v.$space-3xl;
+  background: v.$glow-hero, v.$grain-lines, v.$color-dark;
+
+  &__grid {
+    display: grid;
+    gap: v.$space-xl;
+
+    @include m.above-lg {
+      grid-template-columns: minmax(0, 1fr) v.$index-width;
+      align-items: end;
+      gap: v.$space-2xl;
+    }
+  }
+
+  &__content {
+    display: grid;
+    gap: v.$space-md;
+  }
+
+  &__meta {
+    display: flex;
+    flex-wrap: wrap;
+    gap: v.$space-3xs v.$space-2xs;
+    font-size: v.$fs-sm;
+    color: v.$color-ivory-dim;
+  }
+
+  &__meta-sep {
+    color: v.$color-gold;
+  }
+
+  &__title {
+    @include m.display;
+    max-width: v.$title-measure;
+    font-size: v.$fs-3xl;
+    color: v.$color-ivory;
+
+    em {
+      font-weight: v.$weight-light;
+    }
+  }
+
+  &__lead {
+    max-width: v.$measure;
+    font-size: v.$fs-md;
+    color: v.$color-ivory-dim;
+  }
+
+  &__actions {
+    display: flex;
+    flex-wrap: wrap;
+    gap: v.$space-xs;
+    margin-top: v.$space-2xs;
+  }
+
+  &__summary {
+    display: grid;
+    gap: v.$space-sm;
+    padding: v.$space-md;
+    border: v.$border-thin solid v.$color-line;
+    border-radius: v.$radius-md;
+    background: v.$color-gold-wash;
+  }
+
+  &__summary-label {
+    @include m.label;
+    color: v.$color-gold;
+  }
+
+  &__summary-list {
+    display: grid;
+    gap: v.$space-2xs;
+  }
+
+  &__summary-item {
+    display: grid;
+    grid-template-columns: v.$space-lg 1fr;
+    align-items: baseline;
+    padding-block: v.$space-2xs;
+    border-bottom: v.$border-thin solid v.$color-line-soft;
+    font-size: v.$fs-sm;
+  }
+
+  &__summary-num {
+    font-family: v.$font-display;
+    font-size: v.$fs-lg;
+    font-weight: v.$weight-bold;
+    color: v.$color-gold;
+  }
+
+  &__summary-foot {
+    font-size: v.$fs-xs;
+    color: v.$color-ivory-dim;
+  }
+}
