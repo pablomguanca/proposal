@@ -9,7 +9,7 @@
 .stepper {
   position: relative;
   display: grid;
-  gap: v.$space-lg;
+  gap: v.$space-md;
   margin-bottom: v.$space-2xl;
 
   &__track {
@@ -43,11 +43,26 @@
 
   &__steps {
     display: grid;
-    gap: v.$space-2xs;
+    grid-template-columns: 1fr 1fr;
+    gap: v.$space-xs;
 
     @include m.above-md {
       grid-template-columns: repeat(v.$stages, 1fr);
       gap: v.$space-sm;
+    }
+  }
+
+  &__hint {
+    text-align: center;
+    font-size: v.$fs-xs;
+    font-weight: v.$weight-medium;
+    letter-spacing: v.$ls-label;
+    text-transform: uppercase;
+    color: v.$color-ivory-dim;
+    animation: hint-pulse 2.4s ease-in-out infinite;
+
+    @include m.above-md {
+      display: none;
     }
   }
 
@@ -59,7 +74,7 @@
     grid-template-columns: v.$dot-size 1fr;
     grid-template-areas: 'dot when' 'dot name';
     column-gap: v.$space-sm;
-    padding: v.$space-xs v.$space-sm;
+    padding: v.$space-xs v.$space-sm v.$space-xs v.$space-2xs;
     border: v.$border-thin solid v.$color-line-soft;
     border-radius: v.$radius-md;
     text-align: left;
@@ -129,6 +144,19 @@
   border: v.$border-thin solid v.$color-line;
   border-radius: v.$radius-md;
   background: v.$color-dark;
+
+  &:not(.is-active) {
+    display: none;
+  }
+
+  &__head {
+    @include m.label;
+    color: v.$color-gold;
+
+    @include m.above-md {
+      display: none;
+    }
+  }
 
   &__summary {
     @include m.display;

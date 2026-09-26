@@ -75,7 +75,8 @@
     display: inline-flex;
     align-items: center;
     gap: v.$space-2xs;
-    padding: v.$space-3xs v.$space-xs;
+    min-height: v.$touch-min;
+    padding: v.$space-3xs v.$space-sm;
     border: v.$border-thin solid v.$color-line;
     border-radius: v.$radius-pill;
     font-size: v.$fs-sm;

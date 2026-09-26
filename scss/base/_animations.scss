@@ -32,6 +32,16 @@
   }
 }
 
+@keyframes hint-pulse {
+  0%, 100% { opacity: 0.5; }
+  50% { opacity: 1; }
+}
+
+@keyframes whatsapp-glow {
+  0%, 100% { box-shadow: 0 0 0 0 rgba(#25D366, 0.45); }
+  50% { box-shadow: 0 0 18px 4px rgba(#25D366, 0.25); }
+}
+
 .is-revealed {
   animation: reveal-up v.$duration-slow v.$ease-out both;
 }
@@ -42,7 +52,10 @@
 
 @include m.reduced-motion {
   .is-revealed,
-  .is-entering {
+  .is-entering,
+  .pillars__hint,
+  .stepper__hint,
+  .btn--whatsapp {
     animation: none;
   }
 }

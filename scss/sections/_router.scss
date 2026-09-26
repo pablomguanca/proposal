@@ -27,13 +27,18 @@
   &__group {
     display: grid;
     gap: v.$space-xs;
+
+    &--operation {
+      padding-bottom: v.$space-md;
+      border-bottom: v.$border-thin solid v.$color-line;
+    }
   }
 
   &__legend {
     display: flex;
     align-items: center;
     gap: v.$space-2xs;
-    margin-bottom: v.$space-xs;
+    margin-bottom: v.$space-3xs;
     font-size: v.$fs-sm;
     font-weight: v.$weight-medium;
     color: v.$color-ivory;
@@ -48,6 +53,11 @@
     border-radius: v.$radius-pill;
     font-size: v.$fs-xs;
     color: v.$color-gold;
+  }
+
+  &__question {
+    font-size: v.$fs-sm;
+    color: v.$color-ivory-dim;
   }
 
   &__chips {
@@ -78,10 +88,60 @@
   &__visual {
     display: grid;
     gap: v.$space-md;
+
+    @include m.above-lg {
+      position: sticky;
+      top: v.$topbar-height + v.$space-lg;
+    }
   }
 
   &__diagram {
-    overflow-x: auto;
+    display: none;
+
+    @include m.above-md {
+      display: block;
+    }
+  }
+
+  &__group--operation .chip {
+    font-size: v.$fs-xs;
+    letter-spacing: v.$ls-wide;
+    text-transform: uppercase;
+  }
+
+  &__verdict {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: v.$space-2xs v.$space-sm;
+    min-height: v.$touch-min;
+    padding: v.$space-sm;
+    border: v.$border-thin solid v.$color-gold;
+    border-radius: v.$radius-md;
+    background: v.$color-gold-wash;
+    @include m.focus-ring;
+
+    @include m.above-lg {
+      display: none;
+    }
+  }
+
+  &__verdict-letter {
+    font-family: v.$font-display;
+    font-size: v.$fs-lg;
+    font-weight: v.$weight-bold;
+    color: v.$color-gold;
+  }
+
+  &__verdict-title {
+    flex: 1 1 auto;
+    font-size: v.$fs-sm;
+    color: v.$color-ivory;
+  }
+
+  &__verdict-more {
+    @include m.label;
+    color: v.$color-gold;
   }
 }
 

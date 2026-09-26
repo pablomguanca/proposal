@@ -11,7 +11,7 @@
     gap: v.$space-lg;
 
     @include m.above-md {
-      grid-template-columns: repeat(3, 1fr);
+      grid-template-columns: repeat(2, 1fr);
       gap: v.$space-xl;
     }
   }

@@ -4,6 +4,7 @@
 .chip {
   display: inline-flex;
   align-items: center;
+  min-height: v.$touch-min;
   padding: v.$space-2xs v.$space-sm;
   border: v.$border-thin solid v.$color-line;
   border-radius: v.$radius-pill;

@@ -34,8 +34,7 @@
     color: v.$color-ivory;
   }
 
-  &.is-dimmed {
-    opacity: v.$opacity-dim;
-    transform: scale(v.$scale-dimmed);
+  &.is-hidden {
+    display: none;
   }
 }

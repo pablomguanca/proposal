@@ -48,6 +48,14 @@
     color: v.$color-ivory;
   }
 
+  &__amount.is-pending {
+    font-family: v.$font-body;
+    font-size: v.$fs-md;
+    font-weight: v.$weight-regular;
+    line-height: v.$lh-snug;
+    color: v.$color-ivory-dim;
+  }
+
   &__period {
     font-size: v.$fs-sm;
     color: v.$color-ivory-dim;
@@ -58,5 +66,42 @@
     border-top: v.$border-thin solid v.$color-line-soft;
     font-size: v.$fs-sm;
     color: v.$color-ivory-dim;
+  }
+
+  &--addon {
+    margin-top: v.$space-sm;
+    border-style: dashed;
+    border-color: v.$color-line;
+  }
+
+  &--addon &__text {
+    border-top: 0;
+    padding-top: 0;
+    font-size: v.$fs-base;
+    color: v.$color-ivory;
+  }
+
+  &__addon-title {
+    font-family: v.$font-display;
+    font-size: v.$fs-xl;
+    font-weight: v.$weight-bold;
+    line-height: v.$lh-snug;
+    color: v.$color-ivory;
+  }
+
+  &__addon-price {
+    padding-top: v.$space-sm;
+    border-top: v.$border-thin solid v.$color-line-soft;
+    font-family: v.$font-display;
+    font-size: v.$fs-lg;
+    font-weight: v.$weight-medium;
+    color: v.$color-gold;
+
+    span {
+      font-family: v.$font-body;
+      font-size: v.$fs-sm;
+      font-weight: v.$weight-regular;
+      color: v.$color-ivory-dim;
+    }
   }
 }

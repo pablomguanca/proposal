@@ -1,56 +1,61 @@
 const CONFIG = {
-  cliente: 'Hadges Negocios Inmobiliarios',
-  clienteCorto: 'Hadges',
+  cliente: 'Hadjes Negocios Inmobiliarios',
+  clienteCorto: 'Hadjes',
   zona: 'Quilmes, Buenos Aires',
   fecha: 'Septiembre 2026',
   validez: '31 de octubre de 2026',
-  montoSetup: 'A definir',
-  montoMensual: 'A definir',
-  montoPauta: 'A definir',
-  whatsapp: '5491100000000',
-  whatsappVisible: '+54 9 11 0000-0000',
-  whatsappMensaje: 'Hola Pablo y Carolina, leímos la propuesta para Hadges y queremos avanzar.'
+  montoSetup: '',
+  montoMensual: '',
+  montoPauta: '',
+  whatsapp: '5491169152671',
+  whatsappVisible: '+54 9 11 6915-2671',
+  whatsappMensaje: 'Hola Atenea, leímos la propuesta para Hadjes y queremos avanzar.'
+};
+
+const PAGO_TEXT = {
+  compra: { contado: 'paga de contado', credito: 'tiene el crédito aprobado' },
+  alquiler: { contado: 'tiene ingresos y garantía propia', credito: 'alquila con seguro de caución' }
 };
 
 const ROUTES = {
   A: {
-    tag: 'Camino A',
-    title: 'Visita a la propiedad consultada',
+    tag: 'Camino A · Respondió las tres preguntas',
+    title: 'Prioridad alta: llamada de cierre',
     owner: 'Un asesor de la inmobiliaria, con la ficha completa del lead',
-    text: (op, plazo) => plazo === 'mes'
-      ? `Llega con el capital y quiere resolver ya. Es la consulta que más vale: pasa directo a agenda para que la ${op} avance esta misma semana.`
-      : `Llega con el capital pero no tiene apuro. Se agenda la visita y el sistema lo acompaña para que la inmobiliaria sea la primera opción cuando decida.`,
-    steps: (op) => [
-      'Respuesta automática en minutos con la ficha de la propiedad.',
-      'Propuesta de días y horarios de visita por WhatsApp.',
-      `Aviso al asesor con presupuesto, forma de pago y plazo de la ${op}.`,
-      'Recordatorio de la visita y seguimiento posterior.'
+    text: (data) => `Quiere ${data.operacion === 'compra' ? 'comprar' : 'alquilar'} este mes, ${PAGO_TEXT[data.operacion][data.pago]} y quien decide ya participa. Es la consulta que va directo a la agenda del asesor, con todo el contexto para cerrar.`,
+    steps: () => [
+      'Ingreso al CRM marcado como prioridad alta.',
+      'Aviso inmediato al asesor con plazo, forma de pago y quién decide.',
+      'Llamada de cierre agendada en el mismo día.',
+      'Visita solo a propiedades que entran en su presupuesto.'
     ]
   },
   B: {
-    tag: 'Camino B',
-    title: 'Opciones de la cartera en su rango',
-    owner: 'El sistema primero, el asesor cuando elige una opción',
-    text: (op) => `No llega a la propiedad que vio, pero tiene intención real. En lugar de perderse, recibe propiedades en ${op === 'compra' ? 'venta' : 'alquiler'} de la cartera que sí entran en su presupuesto.`,
-    steps: (op) => [
-      'Respuesta en minutos agradeciendo la consulta.',
-      `Envío de dos o tres propiedades en ${op === 'compra' ? 'venta' : 'alquiler'} acordes a su capacidad.`,
-      op === 'compra' ? 'Orientación sobre crédito hipotecario si lo necesita.' : 'Detalle de requisitos y garantías para cada opción.',
-      'Pasa a visita en cuanto marca interés en una de ellas.'
+    tag: 'Camino B · Puede operar, todavía no está listo',
+    title: 'Seguimiento hasta que esté listo',
+    owner: 'El sistema, hasta que el lead vuelva a levantar la mano',
+    text: (data) => data.decision === 'falta'
+      ? 'Tiene cómo pagar, pero falta quien decide. El sistema lo sigue e invita a sumar a esa persona antes de ocupar un turno de visita.'
+      : `Tiene cómo pagar, pero ${data.operacion === 'compra' ? 'su compra' : 'su mudanza'} es a mediano plazo. Queda en seguimiento para que, cuando se active, la inmobiliaria ya sea su referencia.`,
+    steps: (data) => [
+      'Registro en el CRM con su segmento y fecha estimada.',
+      'Contenido útil por email y WhatsApp: zonas, precios y pasos de la operación.',
+      data.decision === 'falta' ? 'Invitación a sumar a quien decide.' : 'Aviso automático cuando entra una propiedad que encaja.',
+      'Pasa al camino A cuando responde las tres preguntas.'
     ]
   },
   C: {
-    tag: 'Camino C',
-    title: 'Seguimiento hasta que esté listo',
-    owner: 'El sistema, hasta que el lead vuelva a levantar la mano',
-    text: (op, plazo, capacidad) => capacidad === 'llega'
-      ? `Tiene el capital pero todavía está mirando. Queda marcado como prioridad: cuando se active, la inmobiliaria ya es su referencia.`
-      : `Todavía no está para operar. Queda en una ruta de seguimiento que lo acompaña hasta que la ${op} sea posible, con la inmobiliaria siempre presente.`,
-    steps: () => [
-      'Respuesta en minutos y registro en el CRM con su segmento.',
-      'Contenido útil por email y WhatsApp: barrio, precios, pasos de la operación.',
-      'Aviso automático cuando entra una propiedad que encaja.',
-      'Recontacto programado para chequear si cambió su situación.'
+    tag: 'Camino C · Hoy no llega a esta propiedad',
+    title: 'Otras opciones de la cartera',
+    owner: 'El sistema, sin ocupar tiempo de los asesores',
+    text: (data) => data.operacion === 'compra'
+      ? 'No llega al valor de la propiedad que consultó. En lugar de perderse, recibe opciones en venta acordes a su capacidad y queda en seguimiento automático.'
+      : 'No reúne los requisitos para la propiedad que consultó. En lugar de perderse, recibe alquileres de la cartera acordes a su situación y queda en seguimiento automático.',
+    steps: (data) => [
+      'Respuesta automática y registro en el CRM.',
+      `Envío de propiedades en ${data.operacion === 'compra' ? 'venta' : 'alquiler'} dentro de su rango.`,
+      'Seguimiento por email y WhatsApp.',
+      'Vuelve a calificar si cambia su situación.'
     ]
   }
 };
@@ -62,7 +67,13 @@ const prefersReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)
 function applyConfig() {
   qsa('[data-config]').forEach((el) => {
     const value = CONFIG[el.dataset.config];
-    if (value) el.textContent = value;
+    if (value) {
+      el.textContent = value;
+      el.classList.remove('is-pending');
+    } else if (el.dataset.pending) {
+      el.textContent = el.dataset.pending;
+      el.classList.add('is-pending');
+    }
   });
   const url = `https://wa.me/${CONFIG.whatsapp}?text=${encodeURIComponent(CONFIG.whatsappMensaje)}`;
   qsa('[data-whatsapp]').forEach((link) => { link.href = url; });
@@ -149,7 +160,7 @@ function initDaySwitch() {
   setMode('hoy');
 }
 
-function initTabs({ tabSelector, panelSelector, key, onChange }) {
+function initTabs({ tabSelector, panelSelector, key, onChange, desktop }) {
   const tabs = qsa(tabSelector);
   const panels = qsa(panelSelector);
 
@@ -163,7 +174,7 @@ function initTabs({ tabSelector, panelSelector, key, onChange }) {
     });
     panels.forEach((panel) => {
       const active = Number(panel.dataset[key]) === index;
-      panel.hidden = !active;
+      panel.classList.toggle('is-active', active);
       if (active) {
         panel.classList.remove('is-entering');
         void panel.offsetWidth;
@@ -192,6 +203,7 @@ function initPillars() {
     tabSelector: '[data-pillar-tab]',
     panelSelector: '[data-pillar-panel]',
     key: 'pillarPanel',
+    desktop: window.matchMedia('(min-width: 64rem)'),
     onChange: (index) => {
       nodes.forEach((node, i) => node.classList.toggle('is-active', i === index));
       arcs.forEach((arc, i) => arc.classList.toggle('is-active', i === index));
@@ -210,6 +222,7 @@ function initWorkflow() {
     tabSelector: '[data-stage-tab]',
     panelSelector: '[data-stage-panel]',
     key: 'stagePanel',
+    desktop: window.matchMedia('(min-width: 48rem)'),
     onChange: (index) => {
       stepper.dataset.active = String(index);
       steps.forEach((step, i) => step.classList.toggle('is-done', i < index));
@@ -217,13 +230,14 @@ function initWorkflow() {
   })(0);
 }
 
-function resolveRoute({ capacidad, plazo }) {
-  if (capacidad === 'llega') return plazo === 'mirando' ? 'C' : 'A';
-  if (capacidad === 'falta') return plazo === 'mirando' ? 'C' : 'B';
-  return plazo === 'mes' ? 'B' : 'C';
+function resolveRoute({ plazo, pago, decision }) {
+  if (pago === 'no') return 'C';
+  if (plazo === 'mes' && decision !== 'falta') return 'A';
+  return 'B';
 }
 
 function animateDot(dot, path) {
+  if (!dot.closest('.router__diagram').offsetParent) return;
   const length = path.getTotalLength();
   const trunk = qs('.flow__path--trunk');
   const trunkLength = trunk.getTotalLength();
@@ -265,9 +279,14 @@ function initRouter() {
   const text = qs('[data-result-text]');
   const steps = qs('[data-result-steps]');
   const owner = qs('[data-result-owner]');
+  const verdictLetter = qs('[data-verdict-letter]');
+  const verdictTitle = qs('[data-verdict-title]');
 
   const update = () => {
     const data = Object.fromEntries(new FormData(form));
+    qsa('[data-text-compra]', form).forEach((el) => {
+      el.textContent = data.operacion === 'compra' ? el.dataset.textCompra : el.dataset.textAlquiler;
+    });
     const key = resolveRoute(data);
     const route = ROUTES[key];
 
@@ -277,9 +296,11 @@ function initRouter() {
 
     tag.textContent = route.tag;
     title.textContent = route.title;
-    text.textContent = route.text(data.operacion, data.plazo, data.capacidad);
+    text.textContent = route.text(data);
     owner.textContent = route.owner;
-    steps.replaceChildren(...route.steps(data.operacion).map((item) => {
+    verdictLetter.textContent = key;
+    verdictTitle.textContent = route.title;
+    steps.replaceChildren(...route.steps(data).map((item) => {
       const li = document.createElement('li');
       li.textContent = item;
       return li;
@@ -319,7 +340,12 @@ function initIncludes() {
       });
       items.forEach((item) => {
         const match = value === 'todos' || item.dataset.pillar === value;
-        item.classList.toggle('is-dimmed', !match);
+        item.classList.toggle('is-hidden', !match);
+        if (match) {
+          item.classList.remove('is-entering');
+          void item.offsetWidth;
+          item.classList.add('is-entering');
+        }
       });
     });
   });

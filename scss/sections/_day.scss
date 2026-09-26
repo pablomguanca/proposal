@@ -20,6 +20,7 @@
     @include m.focus-ring;
     position: relative;
     z-index: v.$z-base;
+    min-height: v.$touch-min;
     padding: v.$space-2xs v.$space-sm;
     border-radius: v.$radius-pill;
     font-size: v.$fs-sm;

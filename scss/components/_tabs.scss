@@ -14,6 +14,7 @@
     display: inline-flex;
     align-items: baseline;
     gap: v.$space-2xs;
+    min-height: v.$touch-min;
     padding: v.$space-xs v.$space-sm;
     margin-bottom: -(v.$border-thin);
     border-bottom: v.$border-mid solid transparent;

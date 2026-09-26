@@ -29,6 +29,7 @@ $fs-md: 1.125rem;
 $fs-lg: 1.375rem;
 $fs-xl: clamp(1.75rem, 1.3rem + 1.8vw, 2.5rem);
 $fs-2xl: clamp(2.25rem, 1.5rem + 3vw, 3.75rem);
+$fs-hero: clamp(2.25rem, 1.6rem + 2.2vw, 3rem);
 $fs-3xl: clamp(2.6rem, 1.6rem + 4.6vw, 5.25rem);
 $fs-numeral: clamp(3.5rem, 2.5rem + 4vw, 6.5rem);
 
@@ -112,3 +113,5 @@ $stepper-dot-top: 0.4rem;
 $stages: 4;
 $card-min: 15rem;
 $scale-dimmed: 0.98;
+$title-measure-wide: 24ch;
+$touch-min: 2.75rem;

@@ -36,8 +36,8 @@
 
   &__title {
     @include m.display;
-    max-width: v.$title-measure;
-    font-size: v.$fs-3xl;
+    max-width: v.$title-measure-wide;
+    font-size: v.$fs-hero;
     color: v.$color-ivory;
 
     em {
@@ -48,6 +48,7 @@
   &__lead {
     max-width: v.$measure;
     font-size: v.$fs-md;
+    font-weight: v.$weight-light;
     color: v.$color-ivory-dim;
   }
 
