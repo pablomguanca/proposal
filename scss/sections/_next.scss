@@ -39,7 +39,7 @@
 
   &__cta {
     display: grid;
-    justify-items: start;
+    align-self: anchor-center;
     gap: v.$space-sm;
     padding: v.$space-xl v.$space-lg;
     border: v.$border-thin solid v.$color-gold;
@@ -48,15 +48,16 @@
 
     @include m.above-md {
       grid-template-columns: 1fr auto;
-      align-items: center;
+      align-self: center;
       padding: v.$space-xl;
     }
   }
 
   &__cta-text {
     @include m.display;
-    font-size: v.$fs-2xl;
+    font-size: v.$fs-xl;
     font-style: italic;
+    text-align: center;
   }
 
   &__cta-number {
